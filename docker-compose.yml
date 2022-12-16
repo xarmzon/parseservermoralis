@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  server:
+    container_name: mainnetapi_server
+    build: .
+    ports:
+      - '1337:1337'
+    depends_on:
+      - redis
+  redis:
+    image: redis:latest-alphine
+    ports:
+      - '6379:6379'
+    volumes:
+      - cache:/data
+volumes:
+  cache:
+    driver: local
