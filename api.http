@@ -1,0 +1,3 @@
+####get
+GET http://localhost:1337/server
+Content-Type: application/json
