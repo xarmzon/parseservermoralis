@@ -9,7 +9,7 @@ services:
     depends_on:
       - redis
   redis:
-    image: redis:latest-alphine
+    image: redis:latest-alpine
     ports:
       - '6379:6379'
     volumes:

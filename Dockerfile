@@ -1,8 +1,11 @@
-FROM  node:18-alphine
+FROM  node:18-alpine as build
 WORKDIR /usr/app
-COPY package*.json .
-RUN npm i -g yarn
+COPY package.json /usr/app/
+COPY yarn.lock /usr/app/
 RUN yarn
-COPY ./ .
+COPY . /usr/app/
+
+RUN yarn build
+
 EXPOSE 1337
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]
