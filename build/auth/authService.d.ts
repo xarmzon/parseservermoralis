@@ -8,3 +8,9 @@ export declare function requestMessage({ address, chain, networkType, }: {
     chain: string;
     networkType: 'evm';
 }): Promise<string>;
+export interface VerifyMessage {
+    network: string;
+    signature: string;
+    message: string;
+}
+export declare function verifyMessage({ network, signature, message }: VerifyMessage): Promise<unknown>;

@@ -3,7 +3,7 @@
 declare const Parse: any;
 import './generated/evmApi';
 import './generated/solApi';
-import { requestMessage } from '../auth/authService';
+import { requestMessage, verifyMessage } from '../auth/authService';
 
 Parse.Cloud.define('requestMessage', async ({ params }: any) => {
   const { address, chain, networkType } = params;
@@ -16,9 +16,20 @@ Parse.Cloud.define('requestMessage', async ({ params }: any) => {
 
   return { message };
 });
+Parse.Cloud.define('verifyMessage', async ({ params }: any) => {
+  const { network, signature, message } = params;
+
+  const user = await verifyMessage({
+    network,
+    signature,
+    message,
+  });
+
+  return { user };
+});
 
 Parse.Cloud.define('getPluginSpecs', () => {
-  // Not implemented, only excists to remove client-side errors when using the moralis-v1 package
+  // Not implemented, only exists to remove client-side errors when using the moralis-v1 package
   return [];
 });
 

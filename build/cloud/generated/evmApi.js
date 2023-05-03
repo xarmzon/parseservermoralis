@@ -68,6 +68,16 @@ Parse.Cloud.define("getNFTTransfersByBlock", async ({ params, user, ip }) => {
         throw new Error(getErrorMessage(error, 'getNFTTransfersByBlock'));
     }
 });
+Parse.Cloud.define("getInternalTransactions", async ({ params, user, ip }) => {
+    try {
+        await beforeApiRequest(user, ip, 'getInternalTransactions');
+        const result = await moralis_1.default.EvmApi.native.getInternalTransactions(params);
+        return result === null || result === void 0 ? void 0 : result.raw;
+    }
+    catch (error) {
+        throw new Error(getErrorMessage(error, 'getInternalTransactions'));
+    }
+});
 Parse.Cloud.define("getTransaction", async ({ params, user, ip }) => {
     try {
         await beforeApiRequest(user, ip, 'getTransaction');
@@ -76,6 +86,16 @@ Parse.Cloud.define("getTransaction", async ({ params, user, ip }) => {
     }
     catch (error) {
         throw new Error(getErrorMessage(error, 'getTransaction'));
+    }
+});
+Parse.Cloud.define("getTransactionVerbose", async ({ params, user, ip }) => {
+    try {
+        await beforeApiRequest(user, ip, 'getTransactionVerbose');
+        const result = await moralis_1.default.EvmApi.native.getTransactionVerbose(params);
+        return result === null || result === void 0 ? void 0 : result.raw;
+    }
+    catch (error) {
+        throw new Error(getErrorMessage(error, 'getTransactionVerbose'));
     }
 });
 Parse.Cloud.define("getContractEvents", async ({ params, user, ip }) => {
@@ -108,6 +128,16 @@ Parse.Cloud.define("getTransactions", async ({ params, user, ip }) => {
         throw new Error(getErrorMessage(error, 'getTransactions'));
     }
 });
+Parse.Cloud.define("getTransactionsVerbose", async ({ params, user, ip }) => {
+    try {
+        await beforeApiRequest(user, ip, 'getTransactionsVerbose');
+        const result = await moralis_1.default.EvmApi.account.getTransactionsVerbose(params);
+        return result === null || result === void 0 ? void 0 : result.raw;
+    }
+    catch (error) {
+        throw new Error(getErrorMessage(error, 'getTransactionsVerbose'));
+    }
+});
 Parse.Cloud.define("getNativeBalance", async ({ params, user, ip }) => {
     try {
         await beforeApiRequest(user, ip, 'getNativeBalance');
@@ -116,6 +146,16 @@ Parse.Cloud.define("getNativeBalance", async ({ params, user, ip }) => {
     }
     catch (error) {
         throw new Error(getErrorMessage(error, 'getNativeBalance'));
+    }
+});
+Parse.Cloud.define("getNativeBalancesForAddresses", async ({ params, user, ip }) => {
+    try {
+        await beforeApiRequest(user, ip, 'getNativeBalancesForAddresses');
+        const result = await moralis_1.default.EvmApi.account.getNativeBalancesForAddresses(params);
+        return result === null || result === void 0 ? void 0 : result.raw;
+    }
+    catch (error) {
+        throw new Error(getErrorMessage(error, 'getNativeBalancesForAddresses'));
     }
 });
 Parse.Cloud.define("getTokenBalances", async ({ params, user, ip }) => {
@@ -248,6 +288,46 @@ Parse.Cloud.define("getTokenAllowance", async ({ params, user, ip }) => {
         throw new Error(getErrorMessage(error, 'getTokenAllowance'));
     }
 });
+Parse.Cloud.define("getErc20Transfers", async ({ params, user, ip }) => {
+    try {
+        await beforeApiRequest(user, ip, 'getErc20Transfers');
+        const result = await moralis_1.default.EvmApi.token.getErc20Transfers(params);
+        return result === null || result === void 0 ? void 0 : result.raw;
+    }
+    catch (error) {
+        throw new Error(getErrorMessage(error, 'getErc20Transfers'));
+    }
+});
+Parse.Cloud.define("getErc20Mints", async ({ params, user, ip }) => {
+    try {
+        await beforeApiRequest(user, ip, 'getErc20Mints');
+        const result = await moralis_1.default.EvmApi.token.getErc20Mints(params);
+        return result === null || result === void 0 ? void 0 : result.raw;
+    }
+    catch (error) {
+        throw new Error(getErrorMessage(error, 'getErc20Mints'));
+    }
+});
+Parse.Cloud.define("getErc20Burns", async ({ params, user, ip }) => {
+    try {
+        await beforeApiRequest(user, ip, 'getErc20Burns');
+        const result = await moralis_1.default.EvmApi.token.getErc20Burns(params);
+        return result === null || result === void 0 ? void 0 : result.raw;
+    }
+    catch (error) {
+        throw new Error(getErrorMessage(error, 'getErc20Burns'));
+    }
+});
+Parse.Cloud.define("getErc20Approvals", async ({ params, user, ip }) => {
+    try {
+        await beforeApiRequest(user, ip, 'getErc20Approvals');
+        const result = await moralis_1.default.EvmApi.token.getErc20Approvals(params);
+        return result === null || result === void 0 ? void 0 : result.raw;
+    }
+    catch (error) {
+        throw new Error(getErrorMessage(error, 'getErc20Approvals'));
+    }
+});
 Parse.Cloud.define("searchNFTs", async ({ params, user, ip }) => {
     try {
         await beforeApiRequest(user, ip, 'searchNFTs');
@@ -258,14 +338,14 @@ Parse.Cloud.define("searchNFTs", async ({ params, user, ip }) => {
         throw new Error(getErrorMessage(error, 'searchNFTs'));
     }
 });
-Parse.Cloud.define("getNftTransfersFromToBlock", async ({ params, user, ip }) => {
+Parse.Cloud.define("getNFTTransfersFromToBlock", async ({ params, user, ip }) => {
     try {
-        await beforeApiRequest(user, ip, 'getNftTransfersFromToBlock');
-        const result = await moralis_1.default.EvmApi.nft.getNFTTransfersFromToBlock(params);
+        await beforeApiRequest(user, ip, 'getNFTTransfersFromToBlock');
+        const result = await moralis_1.default.EvmApi.token.getNFTTransfersFromToBlock(params);
         return result === null || result === void 0 ? void 0 : result.raw;
     }
     catch (error) {
-        throw new Error(getErrorMessage(error, 'getNftTransfersFromToBlock'));
+        throw new Error(getErrorMessage(error, 'getNFTTransfersFromToBlock'));
     }
 });
 Parse.Cloud.define("getAllTokenIds", async ({ params, user, ip }) => {
@@ -276,6 +356,16 @@ Parse.Cloud.define("getAllTokenIds", async ({ params, user, ip }) => {
     }
     catch (error) {
         throw new Error(getErrorMessage(error, 'getAllTokenIds'));
+    }
+});
+Parse.Cloud.define("getMultipleNFTs", async ({ params, user, ip }) => {
+    try {
+        await beforeApiRequest(user, ip, 'getMultipleNFTs');
+        const result = await moralis_1.default.EvmApi.token.getMultipleNFTs(params);
+        return result === null || result === void 0 ? void 0 : result.raw;
+    }
+    catch (error) {
+        throw new Error(getErrorMessage(error, 'getMultipleNFTs'));
     }
 });
 Parse.Cloud.define("getContractNFTTransfers", async ({ params, user, ip }) => {
@@ -368,6 +458,16 @@ Parse.Cloud.define("resolveDomain", async ({ params, user, ip }) => {
         throw new Error(getErrorMessage(error, 'resolveDomain'));
     }
 });
+Parse.Cloud.define("resolveENSDomain", async ({ params, user, ip }) => {
+    try {
+        await beforeApiRequest(user, ip, 'resolveENSDomain');
+        const result = await moralis_1.default.EvmApi.resolve.resolveENSDomain(params);
+        return result === null || result === void 0 ? void 0 : result.raw;
+    }
+    catch (error) {
+        throw new Error(getErrorMessage(error, 'resolveENSDomain'));
+    }
+});
 Parse.Cloud.define("resolveAddress", async ({ params, user, ip }) => {
     try {
         await beforeApiRequest(user, ip, 'resolveAddress');
@@ -411,7 +511,6 @@ Parse.Cloud.define("uploadFolder", async ({ params, user, ip }) => {
 Parse.Cloud.define("web3ApiVersion", async ({ params, user, ip }) => {
     try {
         await beforeApiRequest(user, ip, 'web3ApiVersion');
-        // @ts-ignore
         const result = await moralis_1.default.EvmApi.utils.web3ApiVersion(params);
         return result === null || result === void 0 ? void 0 : result.raw;
     }
@@ -422,7 +521,6 @@ Parse.Cloud.define("web3ApiVersion", async ({ params, user, ip }) => {
 Parse.Cloud.define("endpointWeights", async ({ params, user, ip }) => {
     try {
         await beforeApiRequest(user, ip, 'endpointWeights');
-        // @ts-ignore
         const result = await moralis_1.default.EvmApi.utils.endpointWeights(params);
         return result === null || result === void 0 ? void 0 : result.raw;
     }
