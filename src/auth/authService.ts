@@ -1,6 +1,5 @@
 import Moralis from 'moralis';
-import { authRequests } from 'src/store';
-import { ParseServerRequest } from 'src/utils/ParseServerRequest';
+import { ParseServerRequest } from '../utils/ParseServerRequest';
 
 const serverRequest = new ParseServerRequest();
 
@@ -18,7 +17,7 @@ const DOMAIN = 'defi.finance';
 const STATEMENT = 'Please sign this message to confirm your identity.';
 const URI = 'https://defi.finance';
 const EXPIRATION_TIME = '2029-01-01T00:00:00.000Z';
-const TIMEOUT = 15;
+const TIMEOUT = 110;
 
 export async function requestMessage({
   address,
@@ -52,13 +51,21 @@ export interface VerifyMessage {
 }
 
 export async function verifyMessage({ network, signature, message }: VerifyMessage) {
-  const storedData = authRequests.get(message);
+  // eslint-disable-next-line etc/no-commented-out-code
+  // const storedData = authRequests.get(message);
 
-  if (!storedData) {
-    throw new Error('Invalid message');
-  }
+  // eslint-disable-next-line etc/no-commented-out-code
+  // if (!storedData) {
+  //   throw new Error('Invalid message');
+  // }
 
-  const { id: storedId, profileId: storedProfileId } = storedData;
+  const { id: storedId, profileId: storedProfileId } = (
+    await Moralis.Auth.verify({
+      message,
+      signature,
+      networkType: 'evm',
+    })
+  ).raw;
 
   const authData = {
     id: storedProfileId,

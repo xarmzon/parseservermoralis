@@ -5,14 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyMessage = exports.requestMessage = void 0;
 const moralis_1 = __importDefault(require("moralis"));
-const store_1 = require("src/store");
-const ParseServerRequest_1 = require("src/utils/ParseServerRequest");
+const ParseServerRequest_1 = require("../utils/ParseServerRequest");
 const serverRequest = new ParseServerRequest_1.ParseServerRequest();
 const DOMAIN = 'defi.finance';
 const STATEMENT = 'Please sign this message to confirm your identity.';
 const URI = 'https://defi.finance';
 const EXPIRATION_TIME = '2029-01-01T00:00:00.000Z';
-const TIMEOUT = 15;
+const TIMEOUT = 110;
 async function requestMessage({ address, chain, networkType, }) {
     const result = await moralis_1.default.Auth.requestMessage({
         address,
@@ -29,11 +28,17 @@ async function requestMessage({ address, chain, networkType, }) {
 }
 exports.requestMessage = requestMessage;
 async function verifyMessage({ network, signature, message }) {
-    const storedData = store_1.authRequests.get(message);
-    if (!storedData) {
-        throw new Error('Invalid message');
-    }
-    const { id: storedId, profileId: storedProfileId } = storedData;
+    // eslint-disable-next-line etc/no-commented-out-code
+    // const storedData = authRequests.get(message);
+    // eslint-disable-next-line etc/no-commented-out-code
+    // if (!storedData) {
+    //   throw new Error('Invalid message');
+    // }
+    const { id: storedId, profileId: storedProfileId } = (await moralis_1.default.Auth.verify({
+        message,
+        signature,
+        networkType: 'evm',
+    })).raw;
     const authData = {
         id: storedProfileId,
         authId: storedId,
